@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Object</title>
+    <link rel="stylesheet" href="./style/style.css" />
+</head>
+<body>
+<div class="header">
+    <nav class="container">
+        <ul class="head">
+            <li>JavaScript基础分享</li>
+        </ul>
+    </nav>
+</div>
+<div class="detail-wrapper container">
+    <div class="detail-left">
+        <ul class="detail-nav">
+            <li class="detail-navList">
+                <div class="detail-navList-title">
+                    <a href="index.html">关于</a>
+                </div>
+            </li>
+            <li class="detail-navList">
+                <div class="detail-navList-title">
+                    <a href="grammar.html">语法</a>
+                </div>
+            </li>
+            <li class="detail-navList">
+                <div class="detail-navList-title">
+                    <a href="dataTypes.html">数据类型</a>
+                </div>
+            </li>
+            <li class="detail-navList">
+                <div class="detail-navList-title">
+                    <a href="array.html">数组和函数</a>
+                </div>
+            </li>
+            <li class="detail-navList">
+                <div class="detail-navList-title">
+                    <a class="green" href="object.html">对象</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="detail-main">
+        <div class="markdown-body">
+            <h2>对象</h2>
+            <p>ECMA-262把对象定义为：无序属性的集合，其属性可以包含基本值，对象或者函数。所以js中对象就是一组键值对。</p>
+            <h3>属性</h3>
+            <p>读取对象的属性，有两种方法，一种是使用点运算符，还有一种是使用方括号运算符。</p>
+            <pre>
+                <code>
+    var o = {
+      p: 'Hello World'
+    };
+
+    o.p // "Hello World"
+    o['p'] // "Hello World"
+                </code>
+            </pre>
+            <h3>for…in 循环</h3>
+            <p>for...in循环用来遍历一个对象的全部属性。</p>
+            <pre>
+                <code>
+    var o = {a: 1, b: 2, c: 3};
+
+    for (var i in o) {
+      console.log(o[i]);
+    }
+    // 1
+    // 2
+    // 3
+                </code>
+            </pre>
+            <div class="spe">
+                <p>它遍历的是对象所有可遍历（enumerable）的属性，会跳过不可遍历的属性
+                    它不仅遍历对象自身的属性，还遍历继承的属性。</p>
+            </div>
+            <pre>
+                <code>
+    // name 是 Person 本身的属性
+    function Person(name) {
+      this.name = name;
+    }
+
+    // describe是Person.prototype的属性
+    Person.prototype.describe = function () {
+      return 'Name: '+this.name;
+    };
+
+    var person = new Person('Jane');
+
+    // for...in循环会遍历实例自身的属性（name），
+    // 以及继承的属性（describe）
+    for (var key in person) {
+      console.log(key);
+    }
+    // name
+    // describe
+                    </code>
+            </pre>
+            <h3>hasOwnProperty 方法</h3>
+            <pre>
+                <code>
+    for (var key in person) {
+      if (person.hasOwnProperty(key)) {
+        console.log(key);
+      }
+    }
+    // name
+                    </code>
+            </pre>
+            <h3>构造函数</h3>
+            <p>构造函数中首字母大写，而非构造函数首字母小写作为区别。通过new操作符来创建实例。</p>
+            <p>要创建person的实例，必须使用new操作符，以这种方式调用构造函数实际上会经历4个步骤：</p>
+            <ul>
+                <li>创建一个新对象</li>
+                <li>修改this</li>
+                <li>执行构造函数中的代码</li>
+                <li>返回新对象</li>
+            </ul>
+            <pre>
+                <code>
+    function Person(name, age, job) {
+         this.name = name;
+         this.age = age;
+         this.job = job;
+         this.sayName = function() { alert(this.name) }
+    }
+    var person1 = new Person('Zaxlct', 28, 'Software Engineer');
+    var person2 = new Person('Mick', 23, 'Doctor');
+
+    //person1 和 person2 都是 构造函数 Person 的实例
+                    </code>
+            </pre>
+            <h3>原型</h3>
+            <p>JavaScript 不包含传统的类继承模型，而是使用 prototype 原型模型。</p>
+            <p>JavaScript的原型是一个很让人头疼的事情，一来prototype容易与__proto__混淆，
+                二来它们之间的各种指向实在有些复杂。</p>
+            <p>每个函数都有一个prototype属性，这个属性指向一个对象，即原型对象。而这个对象的用途是
+                包含可以由特定类型的所有实例共享的属性和方法。即调用构造函数所创建的那个对象的原型对象，
+                好处是可以让所有对象的实例共享他的属性的方法。</p>
+            <p>每个对象都有一个__proto__属性，这个属性指向创建它的构造函数的原型对象。</p>
+            <pre>
+                <code>
+    // 所有的构造器都来自于Function.prototype，甚至包括根构造器Object及Function自身
+    Object.__proto__ === Function.prototype        // true
+    Object.constructor === Function                 // true
+
+    // 所有的构造器都来自于Function.prototype，甚至包括根构造器Object及Function自身
+    Function.__proto__ === Function.prototype     // true
+    Function.constructor === Function              //true
+
+    //Function.prototype也是唯一一个为 function的prototype。其它的构造器的prototype都是一个对象。
+    console.log(typeof Function.prototype) // function
+    console.log(typeof Object.prototype)   // object
+    console.log(typeof Number.prototype)   // object
+    console.log(typeof Boolean.prototype)  // object
+                </code>
+            </pre>
+            <div class="spe">
+                <p>所有函数（包括内置函数与自定义函数）的__proto__都指向Function.prototype。
+                    内置函数的prototype的__proto__都指向Object.prototype（除了Object.prototype，它的__proto__为null）。</p>
+            </div>
+            <p>原型对象其实就是普通对象（但 Function.prototype除外，它是函数，但它很特殊，
+                它没有prototype属性（前面说函数对象都有prototype属性）。</p>
+            <img src="./style/1.png" />
+            <img src="./style/2.png" />
+            <p>在默认情况下，所有的原型对象都会自动获得一个 constructor属性，
+                这个属性指向 prototype 属性所在的函数。</p>
+            <pre>
+                <code>
+
+    function Person() {
+
+    }
+    console.log(Person.prototype);
+    console.log(Person.__proto__);
+
+    Person.__proto__ = {};
+    console.log(Person.__proto__);
+
+    Person.prototype.name = "haha";
+    Person.prototype.sayName = function () {
+           console.log(this.name);
+    }
+    console.log(Person.prototype);
+
+    var person1 = new Person();
+    console.log(person1.__proto__);
+    console.log(person1.name);
+    console.log(person1.sayName());
+
+    var person2 = new Person();
+    console.log(person2.__proto__);
+    console.log(person2.name);
+    console.log(person2.sayName());
+
+    Person.prototype.name = "caicai";
+    console.log(person1.name);
+    console.log(person1.sayName());
+    console.log(person2.name);
+    console.log(person2.sayName());
+
+    function Super() {
+        this.name = "lisi";
+    }
+    Person.prototype = new Super();
+    console.log(Person.prototype);
+
+    Person.prototype.constructor = Person;
+    console.log(Person.prototype);
+    console.log(person1.__proto__);
+    console.log(person2.__proto__);
+
+    var person3 = new Person();
+    console.log(person3.__proto__);
+    console.log(person2.__proto__);
+                </code>
+            </pre>
+            <h4>instanceof 操作符</h4>
+            <p>instanceof是检测对象的原型链是否指向构造函数的prototype对象的，所以我们也可以用它来判断类型。</p>
+            <pre>
+                <code>
+    var arr = [1,2,3];
+    console.log(arr instanceof Array);   // true
+
+    {} instanceof Object      // true
+
+    function Foo() {}
+    function Bar() {}
+    Bar.prototype = new Foo();
+
+    new Bar() instanceof Bar; // true
+    new Bar() instanceof Foo; // true
+
+    new String('foo') instanceof String; // true
+    new String('foo') instanceof Object; // true
+
+    'foo' instanceof String; // false
+    'foo' instanceof Object; // false
+                    </code>
+            </pre>
+            <h4>原型链</h4>
+            <p>JavaScript 使用原型链的继承方式。</p>
+            <img src="./style/3.png" />
+            <p>当查找一个对象的属性时，JavaScript 会向上遍历原型链，直到找到给定名称的属性为止。</p>
+            <p>到查找到达原型链的顶部 - 也就是 Object.prototype - 但是仍然没有找到指定的属性，就会返回 undefined。</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
