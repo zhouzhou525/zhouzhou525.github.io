@@ -1,0 +1,15 @@
+html, body {
+    font-family: Verdana, "Lantinghei SC", "Hiragino Sans GB", "Microsoft Yahei", Helvetica, arial, \5b8b\4f53, sans-serif;
+}
+
+ul, li {
+	list-style: none;
+	cursor: pointer;
+}
+
+.nav {
+	display: -webkit-flex;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
