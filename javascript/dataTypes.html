@@ -127,6 +127,9 @@
         console.log(!NaN);          //true
         console.log(!{});           //false
         console.log(!0);            //true
+        
+        console.log(!!0);           //false
+        console.log(!!false);           //false
 
     && 和 ||: (规则和!一样)
         //特殊用法
@@ -174,13 +177,14 @@
      Number: （+操作符一样）
         数据类型           被转换值                   转换值
         Boolean           true                       1
-        String            ""                         0
+        String            ""                         0           //String类型若为纯数字，则转换为对应格式;否则转换为NaN
         Number            任何值                      不变
         Object            任何对象                    NaN
         Null              null                       0
         Undefined	      undefined                  NaN
 
-        //String类型若为纯数字，则转换为对应格式;否则转换为NaN
+        //console.log(~~true);      //1
+        
 
      parseInt:
         //规则相对简单，会去找第一个非空格字符，若第一个字符不是数值或负号则返回NaN
