@@ -6,7 +6,7 @@ module.exports = {
     ],
     base: '/',
     repo: 'https://github.com/zhouzhou525/zhouzhou525.github.io.git',
-    dest: 'public',
+    dest: './public',
     themeConfig: {
         sidebarDepth: 4,
         lastUpdated: 'Last Updated',
@@ -46,45 +46,11 @@ module.exports = {
             },
             { text: 'GitHub', link: 'https://github.com/zhouzhou525' }
         ],
-        sidebar: [
-            {
-                title: 'Vue',
-                children: [
-                    '/js/vue/vueRouter'
-                ]
-            }
-          ]
-       /*  sidebar: {
-            '/js': [
-                {
-                    title: 'JS基础',
-                    children: [
-                        '/js/basic/js入门1',
-                        '/js/basic/js入门2',
-                    ]
-                },
-                {
-                    title: 'ES6',
-                    children: [
-                        '/js/senior/js高级1',
-                        '/js/senior/js高级2',
-                    ]
-                },
-                {
-                    title: 'Vue',
-                    children: [
-                        '/js/vue/vueRouter',
-                        '/js/senior/js高级2',
-                    ]
-                },
-                {
-                    title: '构建',
-                    children: [
-                        '/js/senior/js高级1',
-                        '/js/senior/js高级2',
-                    ]
-                }
+        sidebar: {
+            '/js/vue/': [
+                '',
+                ['vueRouter.md', '路由']
             ]
-        } */
+        }
     }
 }
