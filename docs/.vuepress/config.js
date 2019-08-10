@@ -1,13 +1,14 @@
 module.exports = {
-    title: 'demo-vuepress',
+    title: '周周前端之路',
     description: '周周前端之路',
     head: [
         ['link', { rel: 'icon', href: `/favicon.ico` }]
     ],
     base: '/',
+    repo: 'https://github.com/zhouzhou525/zhouzhou525.github.io.git',
+    dest: 'public',
     themeConfig: {
         sidebarDepth: 4,
-        sidebar: 'auto',
         lastUpdated: 'Last Updated',
         nav: [
             { text: 'home', link: '/' },
@@ -45,7 +46,15 @@ module.exports = {
             },
             { text: 'GitHub', link: 'https://github.com/zhouzhou525' }
         ],
-        sidebar: {
+        sidebar: [
+            {
+                title: 'Vue',
+                children: [
+                    '/js/vue/vueRouter'
+                ]
+            }
+          ]
+       /*  sidebar: {
             '/js': [
                 {
                     title: 'JS基础',
@@ -76,6 +85,6 @@ module.exports = {
                     ]
                 }
             ]
-        }
+        } */
     }
 }
